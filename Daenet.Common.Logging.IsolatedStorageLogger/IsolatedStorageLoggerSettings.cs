@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Daenet.Common.Logging.IsolatedStorageLogger
 {
-    public class Class1
+    class IsolatedStorageLoggerSettings : IIsolatedStorageLoggerSettings
     {
+        public string Directory { get; set; }
+        public string FileName { get; set; }
     }
 }

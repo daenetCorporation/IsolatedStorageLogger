@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace Daenet.Common.Logging.IsolatedStorageLogger
 {
@@ -15,6 +17,9 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         private Func<string, LogLevel, bool> m_Filter;
         private string m_CategoryName;
         private Dictionary<string, object> m_AdditionalValues;
+        private IsolatedStorageFile m_IsolatedStorageFile;
+        private IIsolatedStorageLoggerSettings m_IIsolatedStorageLoggerSettings;
+        private IIsolatedStorageLoggerSettings m_Settings;
         #endregion
 
         #region Properties
@@ -22,9 +27,26 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         #endregion
 
         #region Public Methods
-        public IsolatedStorageLogger()
+        public IsolatedStorageLogger(IIsolatedStorageLoggerSettings settings,
+            string categoryName, Func<string, LogLevel, bool> filter = null,
+            Func<LogLevel, EventId, object, Exception, string> isolatedDataFormatter = null,
+            Dictionary<string, object> additionalValues = null)
         {
+            if (filter == null)
+                m_Filter = filter ?? ((category, logLevel) => true);
+            else
+                m_Filter = filter;
 
+            this.m_AdditionalValues = additionalValues;
+
+            m_Settings = settings;
+
+            m_CategoryName = categoryName;
+
+            IsolatedDataFormatter = isolatedDataFormatter == null ? defaultIsolatedDataFormatter : isolatedDataFormatter;
+
+            m_IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication();
+            
         }
         public IDisposable BeginScope<TState>(TState state)
         {
@@ -55,13 +77,57 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
                 return;
             }
 
-            string iData = IsolatedDataFormatter(logLevel, eventId, state, exception);
+            string isoData = IsolatedDataFormatter(logLevel, eventId, state, exception);
 
-            //Write file to Isolated Strage 
-        } 
+            WriteFile(m_Settings.Directory, m_Settings.FileName, isoData, m_IsolatedStorageFile);
+        }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Write message to specified file 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileName"></param>
+        /// <param name="message"></param>
+        /// <param name="isf"></param>
+        private void WriteFile(string path, string fileName,string message, IsolatedStorageFile isf)
+        {
+            if (isf.DirectoryExists(path))
+                isf.CreateDirectory(path);
+
+            if(!String.IsNullOrEmpty(message))
+            {
+                using (IsolatedStorageFileStream fs = new IsolatedStorageFileStream($@"{path}\{fileName}", System.IO.FileMode.Append, isf))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.Write(message);
+                    }
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Write foler structure
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="isolatedStorageFile"></param>
+        private void WriteDirectory(string path, IsolatedStorageFile isolatedStorageFile)
+        {
+            if (!isolatedStorageFile.DirectoryExists(path))
+                isolatedStorageFile.CreateDirectory(path);
+        }
+
+        /// <summary>
+        /// Formatte data for Isolated storage
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="eventId"></param>
+        /// <param name="state"></param>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private string defaultIsolatedDataFormatter(LogLevel logLevel, EventId eventId, object state, Exception exception)
         {
             System.Dynamic.ExpandoObject expando = new System.Dynamic.ExpandoObject();
