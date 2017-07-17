@@ -11,12 +11,13 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
     {
         public static IIsolatedStorageLoggerSettings GetIsolatedStorageLoggerSettings(this IConfiguration config)
         {
-            return new IsolatedStorageLoggerSettings()
-            {
-                Directory = config.GetValue<string>("Directory"),
-                FileName = config.GetValue<string>("FileName")
-        };
+            var setting = new IsolatedStorageLoggerSettings();
+            setting.Directory = config.GetSection("IsolatedStorage").GetValue<string>("Directory");
+            setting.FileName = config.GetSection("IsolatedStorage").GetValue<string>("FileName");
 
+            config.GetSection("Switches").Bind(setting.Switches);
+
+            return setting;
         }
     }
 }

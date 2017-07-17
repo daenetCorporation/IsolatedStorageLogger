@@ -1,4 +1,9 @@
 ﻿{
-  "Directory": "C:\\Iso",
-  "FileName": "Logger"
+  "Switches": {
+    "Daenet.Common.Logging.IsolatedStorageLogger.UnitTests.IsolatedStorageLoggerUnitTests": 0
+  },
+  "IsolatedStorage": {
+    "Directory": "C:\\Iso",
+    "FileName": "Logger"
+  }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.IsolatedStorage;
+using Microsoft.Extensions.Logging;
 
 namespace Daenet.Common.Logging.IsolatedStorageLogger
 {
@@ -17,5 +18,6 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         /// File name
         /// </summary>
         string FileName { get; set; }
+        bool TryGetSwitch(string name, out LogLevel level);
     }
 }

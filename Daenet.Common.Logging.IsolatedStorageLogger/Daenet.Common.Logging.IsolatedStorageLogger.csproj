@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="IIsolatedStorageLoggerSettings.cs" />
     <Compile Include="IsolatedStorageLogger.cs" />
+    <Compile Include="IsolatedStorageLoggerProvider.cs" />
     <Compile Include="IsolatedStorageLoggerProviderExtensions.cs" />
     <Compile Include="IsolatedStorageLoggerSettings.cs" />
     <Compile Include="IsolatedStorageLogScopeManager.cs" />
