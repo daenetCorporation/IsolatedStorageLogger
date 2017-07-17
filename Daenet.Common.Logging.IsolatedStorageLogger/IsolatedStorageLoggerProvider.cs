@@ -19,6 +19,13 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="filter"></param>
+        /// <param name="isolatedDataFormatter"></param>
+        /// <param name="additionalValues"></param>
         public IsolatedStorageLoggerProvider(IIsolatedStorageLoggerSettings settings, Func<string, LogLevel, bool> filter, Func<LogLevel, EventId, object, Exception, string> isolatedDataFormatter = null, Dictionary<string, object> additionalValues = null)
         {
             this.m_IsolatedDataFormatter = isolatedDataFormatter;
@@ -26,25 +33,40 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
             this.m_Filter = filter;
             this.m_Settings = settings;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
         public ILogger CreateLogger(string categoryName)
         {
-            throw new NotImplementedException();
+            return createLoggerImplementation(categoryName);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
         #endregion
 
         #region Private Methods
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
         private IsolatedStorageLogger createLoggerImplementation(string categoryName)
         {
             return new IsolatedStorageLogger(m_Settings, categoryName, getFilter(categoryName, m_Settings), m_IsolatedDataFormatter, m_AdditionalValues);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="settings"></param>
+        /// <returns></returns>
         private Func<string, LogLevel, bool> getFilter(string name, IIsolatedStorageLoggerSettings settings)
         {
             if (m_Filter != null)
@@ -68,6 +90,11 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
             false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private IEnumerable<string> getKeyPrefixes(string name)
         {
             List<string> names = new List<string>();
@@ -93,6 +120,11 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
             return names;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private IEnumerable<string> getKeyPrefix(string name)
         {
             List<string> names = new List<string>();
