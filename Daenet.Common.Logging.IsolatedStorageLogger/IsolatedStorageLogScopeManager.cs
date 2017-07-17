@@ -13,6 +13,8 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
 
         }
 
+        public object Current { get; internal set; }
+
         internal IDisposable Push(object state)
         {
             throw new NotImplementedException();
