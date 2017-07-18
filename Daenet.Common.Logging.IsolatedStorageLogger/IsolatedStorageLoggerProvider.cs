@@ -41,7 +41,7 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         /// <returns></returns>
         public ILogger CreateLogger(string categoryName)
         {
-            return createLoggerImplementation(categoryName);
+            return m_Loggers.GetOrAdd(categoryName,createLoggerImplementation);
         }
 
         public void Dispose()

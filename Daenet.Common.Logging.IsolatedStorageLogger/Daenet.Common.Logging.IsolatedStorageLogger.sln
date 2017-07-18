@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26621.2
+VisualStudioVersion = 15.0.26711.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daenet.Common.Logging.IsolatedStorageLogger", "Daenet.Common.Logging.IsolatedStorageLogger.csproj", "{50836211-F2BD-4D8D-896A-E5CB17251CC0}"
 EndProject
@@ -36,6 +36,7 @@ Global
 		{50836211-F2BD-4D8D-896A-E5CB17251CC0}.Release|x86.ActiveCfg = Release|x86
 		{50836211-F2BD-4D8D-896A-E5CB17251CC0}.Release|x86.Build.0 = Release|x86
 		{29932189-2870-4451-A19B-80385352B59C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{29932189-2870-4451-A19B-80385352B59C}.Debug|Any CPU.Build.0 = Debug|x86
 		{29932189-2870-4451-A19B-80385352B59C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{29932189-2870-4451-A19B-80385352B59C}.Debug|ARM.Build.0 = Debug|ARM
 		{29932189-2870-4451-A19B-80385352B59C}.Debug|ARM.Deploy.0 = Debug|ARM

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Daenet.Common.Logging.IsolatedStorageLogger
 {
-    class IsolatedStorageLoggerSettings : IIsolatedStorageLoggerSettings
+    public class IsolatedStorageLoggerSettings : IIsolatedStorageLoggerSettings
     {
         public IDictionary<string, LogLevel> Switches { get; set; } = new Dictionary<string, LogLevel>();
         public string Directory { get; set; }
