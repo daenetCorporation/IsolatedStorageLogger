@@ -9,18 +9,14 @@ namespace UnitTests
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void WriteFile()
+        public UnitTest1()
         {
 
         }
 
-        private void getIsolatedStorageSettings()
+        [TestMethod]
+        public void WriteFile()
         {
-            ConfigurationBuilder cfgBuilder = new ConfigurationBuilder();
-            cfgBuilder.AddJsonFile(@"IsolatedStorageSettings.json");
-            var cfgRoot = cfgBuilder.Build();
-            cfgRoot.GetIsolatedStorageLoggerSettings();
 
         }
     }

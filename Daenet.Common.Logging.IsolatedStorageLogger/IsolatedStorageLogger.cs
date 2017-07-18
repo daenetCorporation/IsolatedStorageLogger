@@ -18,7 +18,6 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         private string m_CategoryName;
         private Dictionary<string, object> m_AdditionalValues;
         private IsolatedStorageFile m_IsolatedStorageFile;
-        private IIsolatedStorageLoggerSettings m_IIsolatedStorageLoggerSettings;
         private IIsolatedStorageLoggerSettings m_Settings;
         #endregion
 
@@ -48,6 +47,7 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
             m_IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication();
             
         }
+
         public IDisposable BeginScope<TState>(TState state)
         {
             if (state == null)
