@@ -34,19 +34,13 @@ namespace UnitTests
               Func<LogLevel, EventId, object, Exception, string> eventDataFormatter = null,
            Dictionary<string, object> additionalValues = null)
         {
-
-            //var p = Path.Combine(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("AppX")), @"IsolatedStorageSettings.json");
-            ////File.ReadAllText("")
-            //ConfigurationBuilder cfgBuilder = new ConfigurationBuilder();
-            //cfgBuilder.AddJsonFile(@"IsolatedStorageSettings.json");
-            //var configRoot = cfgBuilder.Build();
             Dictionary<string, LogLevel> dictionary = new Dictionary<string, LogLevel>();
             dictionary.Add("UnitTests", 0);
 
             var setting = new IsolatedStorageLoggerSettings()
             {
-                Directory = "C:\\Iso",
-                FileName = "logger.json",
+                Directory = "IsolatedStrorageLog",
+                FileName = "log.json",
                 Switches = dictionary
             };
 

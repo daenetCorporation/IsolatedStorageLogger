@@ -93,16 +93,17 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
         /// <param name="isf"></param>
         private void WriteFile(string path, string fileName,string message, IsolatedStorageFile isf)
         {
-            if (isf.DirectoryExists(path))
+            if (!isf.DirectoryExists(path))
                 isf.CreateDirectory(path);
 
             if(!String.IsNullOrEmpty(message))
             {
-                using (IsolatedStorageFileStream fs = new IsolatedStorageFileStream($@"{path}\{fileName}", System.IO.FileMode.Append, isf))
+                using (IsolatedStorageFileStream fs = new IsolatedStorageFileStream($@"{path}\{fileName}", FileMode.OpenOrCreate | FileMode.Append, FileAccess.Write, isf))
                 {
                     using (StreamWriter writer = new StreamWriter(fs))
                     {
-                        writer.Write(message);
+                        writer.WriteLineAsync(message).Wait();
+                        writer.Flush();
                     }
                 }
             }
