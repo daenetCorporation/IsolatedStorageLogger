@@ -1,12 +1,8 @@
-﻿
-using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Extensions.Configuration;
 using Daenet.Common.Logging.IsolatedStorageLogger;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.IO;
-using Daenet.Common.Logging.IsolatedStorageLogger;
 
 namespace UnitTests
 {
@@ -30,6 +26,12 @@ namespace UnitTests
             m_Logger.LogCritical(new EventId(123, "txt123"), "123 Test Critical Log Message");
         }
 
+        /// <summary>
+        /// Initializeation
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="eventDataFormatter"></param>
+        /// <param name="additionalValues"></param>
         private void init(Func<string, LogLevel, bool> filter,
               Func<LogLevel, EventId, object, Exception, string> eventDataFormatter = null,
            Dictionary<string, object> additionalValues = null)

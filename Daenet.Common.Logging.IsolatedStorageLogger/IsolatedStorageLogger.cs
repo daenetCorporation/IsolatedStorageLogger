@@ -85,7 +85,7 @@ namespace Daenet.Common.Logging.IsolatedStorageLogger
 
         #region Private Methods
         /// <summary>
-        /// Write message to specified file 
+        /// Write message to specified file in Isolated Storage 
         /// </summary>
         /// <param name="path"></param>
         /// <param name="fileName"></param>
